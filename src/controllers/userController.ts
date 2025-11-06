@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { User, users } from '../models/user';
+import * as Model from "../models/user";
 
 // Create an item
 export const createUser = (req: Request, res: Response, next: NextFunction) => {
   try {
-
     const { firstName, lastName, address, province, phone, gender } = req.body;
-    const newUser: User = { 
+    const newUser: Model.User = { 
         id: Date.now(), 
         firstName: firstName,
         lastName: lastName,
@@ -15,8 +14,8 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
         phone: phone,
         gender: gender
     };
-
-    users.push(newUser);
+    
+    //users.push(newUser);
     res.status(201).json(newUser);
   } catch (error) {
     next(error);
@@ -24,37 +23,37 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Read single item
-export const getUser = (req: Request, res: Response, next: NextFunction) => {
+export const getUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id: number = parseInt(req.params.id!);
-    console.log(id)
-    const user = users.find((u) => u.id === id);
-
+    const id = req.params.id!;
+    const user = await Model.getUser(id);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
     } 
     res.json(user);
-    
   } catch (error) {
     next(error);
   }
 };
 
 // Read all items
-export const getUsers = (_: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (_: Request, res: Response, next: NextFunction) => {
   try {
+    const users = await Model.getUsers();
+    if (users!.length == 0) {
+        res.status(404).json({ message: 'Users not found, try to add some' });
+        return;
+    }
     res.json(users);
   } catch (error) {
     next(error);
   }
 };
 
-
-
 // Update an item
 export const updateUser = (req: Request, res: Response, next: NextFunction) => {
-  try {
+ /* try {
     const id = parseInt(req.params.id!);
     const { firstName, lastName, address, province, phone, gender } = req.body;
     const userIndex = users.findIndex((u) => u.id === id);
@@ -97,12 +96,12 @@ export const updateUser = (req: Request, res: Response, next: NextFunction) => {
     res.json(users[id]);
   } catch (error) {
     next(error);
-  }
+  }*/
 };
 
 // Delete an item
 export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
- try {
+ /*try {
     const id = parseInt(req.params.id!);
     const userIndex = users.findIndex((u) => u.id === id);
     if (userIndex === -1) {
@@ -113,5 +112,5 @@ export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
     res.json(deletedItem);
   } catch (error) {
     next(error);
-  }
+  }*/
 };
