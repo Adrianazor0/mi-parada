@@ -100,3 +100,11 @@ Is an API developed with nodejs, express and Firebase
     "gender": "Masculine"
 }
 ```
+
+### Delete an user by id
+
+- **DELETE** `/users/:id`
+- **Description:** It deletes the user who shares the chosen id
+- **Parameters:**
+    -`id` (path, required): number of the id desired to find
+- **Example response:** 204 No Content

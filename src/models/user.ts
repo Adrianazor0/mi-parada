@@ -32,9 +32,22 @@ export const getUser = async (id: string) => {
 export const createUser = async (data: User) => {
     try {
         const docRef = await userCollection.add(data)
-        console.log({id: docRef.id, ...data})
         return {id: docRef.id, ...data}
     } catch (error) {
         console.error(error)
+    }
+}
+
+export const deleteUser = async (id: string) => {
+    try {
+        const snapshot = await userCollection.doc(id).get();
+        if (snapshot.exists) {
+            await userCollection.doc(id).delete();
+            return true
+        }
+        return false
+        
+    } catch (error) {
+        console.log(`Error al obtener el producto con el id ${id}: `, error);
     }
 }

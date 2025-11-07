@@ -91,17 +91,17 @@ export const updateUser = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Delete an item
-export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
- /*try {
-    const id = parseInt(req.params.id!);
-    const userIndex = users.findIndex((u) => u.id === id);
-    if (userIndex === -1) {
-      res.status(404).json({ message: 'user not found' });
-      return;
-    }
-    const deletedItem = users.splice(userIndex, 1)[0];
-    res.json(deletedItem);
+export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+ try {
+    const { id } = req.params;
+    const deletedUser = await Model.deleteUser(id!);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not deleted please check the requested id.' });
+    } 
+
+    res.status(204).send();
+
   } catch (error) {
     next(error);
-  }*/
+  }
 };
