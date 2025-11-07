@@ -2,20 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import * as Model from "../models/user";
 
 // Create an item
-export const createUser = (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { firstName, lastName, address, province, phone, gender } = req.body;
-    const newUser: Model.User = { 
-        id: Date.now(), 
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        province: province,
-        phone: phone,
-        gender: gender
-    };
-    
-    //users.push(newUser);
+    const newUser = await Model.createUser({ firstName, lastName, address, province, phone, gender });
+
     res.status(201).json(newUser);
   } catch (error) {
     next(error);

@@ -32,37 +32,19 @@ Is an API developed with nodejs, express and Firebase
 
 ### Get all Users
 
-- **GET** `/api/users`
+- **GET** `/users`
 - **Description:** It returns list of all users
 - **Example response:**
 
 ```json
 [
     {
-        "id": "1",
-        "firstName": "Adrian",
-        "lastName": "Azor",
-        "address": "Av. 25 de Febrero, #34",
+        "id": "y0Tsr9zkcEKNE5O0f6zj",
+        "firstName": "Darian",
+        "lastName": "Xonobac",
+        "address": "San Isidro",
         "province": "Santo Domingo",
-        "phone": 8498851298,
-        "gender": "Masculine"
-    },
-    {
-        "id": "2",
-        "firstName": "Kamil",
-        "lastName": "Santana",
-        "address": "Av. george Washignton, #299",
-        "province": "Santo Domingo",
-        "phone": 8498852398,
-        "gender": "Femenine"
-    },
-    {
-        "id": "3",
-        "firstName": "Arfenis",
-        "lastName": "Puello",
-        "address": "Ciudad Juan Bosh, Apartment #33",
-        "province": "Santo Domingo",
-        "phone": 8096547895,
+        "phone": 8496698472,
         "gender": "Masculine"
     }
 ]
@@ -70,22 +52,51 @@ Is an API developed with nodejs, express and Firebase
 
 ### Get an user by id
 
-- **GET** `/api/users/:id`
+- **GET** `/users/:id`
 - **Description:** It return the user who shares the chosen id
 - **Parameters:**
     -`id` (path, required): number of the id desired to find
-- **Example of use:** `/users/1`
+- **Example of use:** `/users/y0Tsr9zkcEKNE5O0f6zj`
 - **Example response:**
 
 ```json
 {
-    "id": "1",
-    "firstName": "Adrian",
-    "lastName": "Azor",
-    "address": "Av. 25 de Febrero, #34",
+    "id": "y0Tsr9zkcEKNE5O0f6zj",
+    "firstName": "Darian",
+    "lastName": "Xonobac",
+    "address": "San Isidro",
     "province": "Santo Domingo",
-    "phone": 8498851298,
+    "phone": 8496698472,
     "gender": "Masculine"
 }
 ```
 
+### Create an user
+
+- **POST** `/users`
+- **Description:** It a new user and add it to the database
+- **Body (JSON):**
+
+```json
+{
+    "firstName": "Darian",
+    "lastName": "Xonobac",
+    "address": "San Isidro",
+    "province": "Santo Domingo",
+    "phone": 8496698472,
+    "gender": "Masculine"
+}
+```
+- **Example response:**
+
+```json
+{
+    "id": "y0Tsr9zkcEKNE5O0f6zj",
+    "firstName": "Darian",
+    "lastName": "Xonobac",
+    "address": "San Isidro",
+    "province": "Santo Domingo",
+    "phone": 8496698472,
+    "gender": "Masculine"
+}
+```
